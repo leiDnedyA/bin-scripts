@@ -1,0 +1,17 @@
+#!/bin/bash
+
+NOTES_DIRECTORY_PATH="$HOME/Notes"
+TODAYS_FILE_NAME="$(date '+%B-%d-%y' | tr '[:upper:]' '[:lower:]').md"
+FILE_PATH=$NOTES_DIRECTORY_PATH/$TODAYS_FILE_NAME
+
+if [ -f $FILE_PATH ]; then
+  echo "Note file already exists for today. Exiting"
+  exit 1
+fi
+
+echo "# $(date '+%A %B %d, %Y')" > $FILE_PATH
+
+if [ $# -ne 0 ] && [ $1 == "-o" ]; then
+  cd $NOTES_DIRECTORY_PATH
+  nvim $TODAYS_FILE_NAME
+fi

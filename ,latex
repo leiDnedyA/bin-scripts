@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+# Check if a filename is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 filename.tex"
+  exit 1
+fi
+
+# Remove the .tex extension if provided
+filename="${1%.tex}"
+
+# Run pdflatex with nonstop mode
+pdflatex -interaction=nonstopmode "$filename.tex"
+
+# Remove auxiliary files (.log and .aux)
+rm -f "$filename.log" "$filename.aux"
+
+echo "PDF compilation done and .log, .aux files removed for $filename."
