@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Usage: ./git_diff.sh [-n|--name-only] <n>
+#    -n, --name-only: Show only file names in the diff output
+
+show_usage() {
+    echo "Usage: $0 [-n|--name-only] <n>"
+}
+
+# Parse optional flag for file names only.
+NAME_ONLY_FLAG=""
+if [[ "$1" == "-n" || "$1" == "--name-only" ]]; then
+    NAME_ONLY_FLAG="--name-only"
+    shift
+fi
+
+# Verify exactly one numeric argument remains.
+if [ "$#" -ne 1 ]; then
+    show_usage
+    exit 1
+fi
+
+n="$1"
+# Validate that n is a positive integer.
+if ! [[ "$n" =~ ^[0-9]+$ ]]; then
+    echo "Error: n must be a positive integer."
+    exit 1
+fi
+
+# Ensure n is greater than 1.
+if [ "$n" -le 1 ]; then
+    echo "Error: n must be greater than 1."
+    exit 1
+fi
+
+# Calculate (n-1)
+prev=$((n - 1))
+
+# Run the git diff command with or without the --name-only flag.
+if [ -n "$NAME_ONLY_FLAG" ]; then
+    git diff "$NAME_ONLY_FLAG" HEAD~"$n" HEAD~"$prev"
+else
+    git diff HEAD~"$n" HEAD~"$prev"
+fi
