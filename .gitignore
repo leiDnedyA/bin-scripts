@@ -1,3 +1,10 @@
-*
-!,*
-!.*
+*.gz
+magick
+marksman
+terraform
+lnav
+audacity
+arduino
+geckodriver
+playit
+sd

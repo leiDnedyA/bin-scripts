@@ -1,0 +1,1 @@
+/home/ayden/Projects/paywell/get-uid/get-paywell-uid.js
