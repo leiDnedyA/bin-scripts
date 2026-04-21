@@ -11,6 +11,9 @@ set -euo pipefail
 text="$(
   cat \
   | tr '\r\n' '  ' \
+  | tr -d '-' \
+  | tr -d '*' \
+  | tr -d '#' \
   | sed 's/[[:space:]]\+/ /g; s/^ //; s/ $//'
 )"
 
